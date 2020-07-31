@@ -1,3 +1,19 @@
+body {
+    background-color: midnightblue;
+}
 .hide {
     display: none
+}
+
+.container-fluid {
+    background-color: slategrey;
+}
+
+.container {
+    max-width: 60%;
+}
+
+.header {
+    background-color: darkgray;
+    color: ;
 }

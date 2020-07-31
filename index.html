@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coding Quiz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
     <!-- Boostrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <header class="header">
             <h1 class="row justify-content-center">
                 Coding Quiz
@@ -19,7 +20,7 @@
                 
             </h3>
         </header>
-        <div id="intro">
+        <div id="intro" class="container">
             <h2 class="row justify-content-center">
                 Welcome to the quiz!
             </h2>
@@ -38,20 +39,30 @@
             <h2 class="row justify-content-center">
                 Placeholder Question
             </h2>
-            <div class="answers row justify-content-center">
-                <button id="answer-one" class="d-block">
-                    Answer 1
-                </button>
-                <button id="answer-two" class="d-block">
+            <!-- <div class="answers row justify-content-center"> -->
+                <div id="answer-one" class="row justify-content-center">
+                    <p>Answer 1</p>
+                </div>
+                <div id="answer-one" class="row justify-content-center">
+                    <p>Answer 2</p>
+                </div>
+                <div id="answer-one" class="row justify-content-center">
+                    <p>Answer 3</p>
+                </div>
+                <div id="answer-one" class="row justify-content-center">
+                    <p>Answer 4</p>
+                </div>
+                <!-- </div>
+                <button id="answer-two" class="d-block p-2">
                     Answer 2
                 </button>
-                <button id="answer-three" class="d-block">
+                <button id="answer-three" class="d-block p-2">
                     Answer 3
                 </button>
-                <button id="answer-four" class="d-block">
+                <button id="answer-four" class="d-block p-2">
                     Answer 4
-                </button>
-            </div>
+                </button> -->
+            <!-- </div> -->
         </div>
     </div>
     <div id="answer-tracker" class="container hide">

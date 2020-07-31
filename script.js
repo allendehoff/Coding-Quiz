@@ -9,14 +9,18 @@ function runTimer() {
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timerEl.textContent = "Time Remaining: " + secondsLeft;
-  
-        // if(secondsLeft === 0) {
-        // clearInterval(timerInterval);
-        // sendMessage();
-        // }
+
+        if(secondsLeft === 0) {
+        clearInterval(timerInterval);
+        endQuiz();
+        }
         
     }, 1000);
-  }
+}
+
+function endQuiz(){
+    timerEl.setAttribute("class", "hide")
+}
 
 //question object
 var questionOne = {
