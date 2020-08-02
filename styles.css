@@ -16,4 +16,26 @@ body {
 .header {
     background-color: darkgray;
     color: ;
+    padding-bottom: 20px;
+}
+
+#intro{
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+}
+#question{
+    padding-top: 20px;
+}
+
+#answer-tracker {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: darkgrey;
+}
+
+#answer-tracker h4{
+    text-align: center;
+    padding: 5px;
+    border: 2px solid black;
 }
