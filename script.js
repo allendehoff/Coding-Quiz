@@ -1,21 +1,21 @@
-var startButton = $("#start")
-var introEl = $("#intro")
-var questionEl = $("#questionBlock")
-var answerTracker = $("#answer-tracker")
-var timerEl = $("#timer")
+var startButton = document.getElementById("start")
+var introEl = document.getElementById("intro")
+var questionEl = document.getElementById("questionBlock")
+var answerTracker = document.getElementById("answer-tracker")
+var timerEl = document.getElementById("timer")
 var secondsLeft = 30
-var question = $("#question")
-var firstAnswer = $("#answer-one")
-var secondAnswer = $("#answer-two")
-var thirdAnswer = $("#answer-three")
-var fourthAnswer = $("#answer-four")
+var question = document.getElementById("question")
+var firstAnswer = document.getElementById("answer-one")
+var secondAnswer = document.getElementById("answer-two")
+var thirdAnswer = document.getElementById("answer-three")
+var fourthAnswer = document.getElementById("answer-four")
 
 
-startButton.on("click", function(){
-    timerEl.text("Time Remaining: 30");
-    introEl.attr("class", "hide");
-    questionEl.removeClass("hide");
-    answerTracker.removeClass("hide");
+startButton.addEventListener("click", function(){
+    timerEl.textContent = "Time Remaining: 30";
+    introEl.classList.add("hide");
+    questionEl.classList.remove("hide");
+    answerTracker.classList.remove("hide");
     renderQuestion()
     runTimer()
 })
@@ -23,7 +23,7 @@ startButton.on("click", function(){
 function runTimer() {
     var timerInterval = setInterval(function() {
         secondsLeft--;
-        timerEl.text = "Time Remaining: " + secondsLeft;
+        timerEl.textContent = "Time Remaining: " + secondsLeft;
 
         if(secondsLeft === 0) {
         clearInterval(timerInterval);
@@ -34,7 +34,7 @@ function runTimer() {
 }
 
 function endQuiz(){
-    timerEl.attr("class", "hide")
+    timerEl.classList.add("hide")
 }
 
 var questions = [
@@ -51,15 +51,15 @@ var questions = [
 ]
 
 function renderQuestion(){
-    question.text(questions[0].question);
-    firstAnswer.text(questions[0].answers[0]);
-    firstAnswer.attr("data-check", questions[0].checks[0]);
-    secondAnswer.text(questions[0].answers[1]);
-    secondAnswer.attr("data-check", questions[0].checks[1]);
-    thirdAnswer.text(questions[0].answers[2]);
-    thirdAnswer.attr("data-check",questions[0].checks[2]);
-    fourthAnswer.text(questions[0].answers[3]);
-    fourthAnswer.attr("data-check", questions[0].checks[3]);
+    question.textContent = questions[0].question;
+    firstAnswer.textContent = questions[0].answers[0];
+    firstAnswer.setAttribute("data-check", questions[0].checks[0]);
+    secondAnswer.textContent = questions[0].answers[1];
+    secondAnswer.setAttribute("data-check", questions[0].checks[1]);
+    thirdAnswer.textContent = questions[0].answers[2];
+    thirdAnswer.setAttribute("data-check",questions[0].checks[2]);
+    fourthAnswer.textContent = questions[0].answers[3];
+    fourthAnswer.setAttribute("data-check", questions[0].checks[3]);
 
 
 }
