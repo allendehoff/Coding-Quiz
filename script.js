@@ -4,11 +4,20 @@ var questionEl = document.getElementById("questionBlock")
 var answerTracker = document.getElementById("answer-tracker")
 var timerEl = document.getElementById("timer")
 var secondsLeft = 30
+var score = 0
 var question = document.getElementById("question")
+var answer = document.getElementsByClassName("answer")
 var firstAnswer = document.getElementById("answer-one")
 var secondAnswer = document.getElementById("answer-two")
 var thirdAnswer = document.getElementById("answer-three")
 var fourthAnswer = document.getElementById("answer-four")
+var tracker = {
+    ans1 : document.getElementById("ans1"),
+    ans2 : document.getElementById("ans2"),
+    ans3 : document.getElementById("ans3"),
+    ans4 : document.getElementById("ans4"),
+    ans5 : document.getElementById("ans5")
+}
 
 
 startButton.addEventListener("click", function(){
@@ -61,11 +70,24 @@ function renderQuestion(){
     fourthAnswer.textContent = questions[0].answers[3];
     fourthAnswer.setAttribute("data-check", questions[0].checks[3]);
 
-
+    for (const ans of answer){
+    ans.addEventListener("click", function(){
+        if (ans.getAttribute("data-check") === "right"){
+            tracker.ans1.classList.add("right")
+            score++
+        }
+        else if (ans.getAttribute("data-check") === "wrong"){
+            tracker.ans1.classList.add("wrong")
+            score --
+        }
+        console.log(score)
+    })
+    }
 }
 
 
-// answerClick()
+
+
 
 
 //question object
@@ -108,7 +130,6 @@ function renderQuestion(){
 //     answerC: "Wrong C",
 //     answerD: "Wrong D"
 // }
-
 
 
 
