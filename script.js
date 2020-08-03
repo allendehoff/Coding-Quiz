@@ -6,18 +6,24 @@ var timerEl = document.getElementById("timer")
 var secondsLeft = 30
 var score = 0
 var question = document.getElementById("question")
+var answerEls = [
+    document.getElementById("answer-one"),
+    document.getElementById("answer-two"),
+    document.getElementById("answer-three"),
+    document.getElementById("answer-four")
+]
 var answer = document.getElementsByClassName("answer")
-var firstAnswer = document.getElementById("answer-one")
-var secondAnswer = document.getElementById("answer-two")
-var thirdAnswer = document.getElementById("answer-three")
-var fourthAnswer = document.getElementById("answer-four")
-var tracker = {
-    ans1 : document.getElementById("ans1"),
-    ans2 : document.getElementById("ans2"),
-    ans3 : document.getElementById("ans3"),
-    ans4 : document.getElementById("ans4"),
-    ans5 : document.getElementById("ans5")
-}
+// var firstAnswer = document.getElementById("answer-one")
+// var secondAnswer = document.getElementById("answer-two")
+// var thirdAnswer = document.getElementById("answer-three")
+// var fourthAnswer = document.getElementById("answer-four")
+var tracker = [
+    document.getElementById("ans1"),
+    document.getElementById("ans2"),
+    document.getElementById("ans3"),
+    document.getElementById("ans4"),
+    document.getElementById("ans5")
+]
 
 
 startButton.addEventListener("click", function(){
@@ -25,8 +31,8 @@ startButton.addEventListener("click", function(){
     introEl.classList.add("hide");
     questionEl.classList.remove("hide");
     answerTracker.classList.remove("hide");
-    renderQuestion()
     runTimer()
+    renderQuestion(4)
 })
 
 function runTimer() {
@@ -56,80 +62,110 @@ var questions = [
         question: "Which of these swims?",
         answers: ["fish", "zebra", "elephant", "turkey"],
         checks: ["right", "wrong", "wrong", "wrong"]
+    },
+    {
+        question: "What does the dog say?",
+        answers: ["moo", "woof", "meow", "cockadoodledoo"],
+        checks: ["wrong", "right", "wrong", "wrong"]
+    },
+    {
+        question: "Who makes the MacBook?",
+        answers: ["Acer", "Samsung", "Intel", "Apple"],
+        checks: ["wrong", "wrong", "wrong", "right"]
+    },
+    {
+        question: "Which of these is a programming language?",
+        answers: ["Spanish", "JavaScript", "Klingon", "Gibberish"],
+        checks : ["wrong", "right", "wrong", "wrong"]
     }
 ]
 
-function renderQuestion(){
-    question.textContent = questions[0].question;
-    firstAnswer.textContent = questions[0].answers[0];
-    firstAnswer.setAttribute("data-check", questions[0].checks[0]);
-    secondAnswer.textContent = questions[0].answers[1];
-    secondAnswer.setAttribute("data-check", questions[0].checks[1]);
-    thirdAnswer.textContent = questions[0].answers[2];
-    thirdAnswer.setAttribute("data-check",questions[0].checks[2]);
-    fourthAnswer.textContent = questions[0].answers[3];
-    fourthAnswer.setAttribute("data-check", questions[0].checks[3]);
+
+function renderQuestion(x){
+    question.textContent = questions[x].question;
+    answerEls[0].textContent = questions[x].answers[0];
+    answerEls[0].setAttribute("data-check", questions[x].checks[0]);
+    answerEls[1].textContent = questions[x].answers[1];
+    answerEls[1].setAttribute("data-check", questions[x].checks[1]);
+    answerEls[2].textContent = questions[x].answers[2];
+    answerEls[2].setAttribute("data-check",questions[x].checks[2]);
+    answerEls[3].textContent = questions[x].answers[3];
+    answerEls[3].setAttribute("data-check", questions[x].checks[3]);
 
     for (const ans of answer){
-    ans.addEventListener("click", function(){
-        if (ans.getAttribute("data-check") === "right"){
-            tracker.ans1.classList.add("right")
-            score++
+        ans.addEventListener("click", function(){
+            if (ans.getAttribute("data-check") === "right"){
+                tracker[x].classList.add("right")
+                score++
+            }
+            else if (ans.getAttribute("data-check") === "wrong"){
+                tracker[x].classList.add("wrong")
+                score --
+            }
+        })
         }
-        else if (ans.getAttribute("data-check") === "wrong"){
-            tracker.ans1.classList.add("wrong")
-            score --
-        }
-        console.log(score)
-    })
-    }
 }
 
 
 
-
-
-
-//question object
-// var questionOne = {
-//     question: "Question one",
-//     answerA: "Wrong A",
-//     answerB: "Wrong B",
-//     answerC: "Right C",
-//     answerD: "Wrong D"
+// function selectAnswer(x){
+//     for (const ans of answer){
+//         ans.addEventListener("click", function(){
+//             if (ans.getAttribute("data-check") === "right"){
+//                 tracker[x].classList.add("right")
+//                 score++
+//             }
+//             else if (ans.getAttribute("data-check") === "wrong"){
+//                 tracker[x].classList.add("wrong")
+//                 score --
+//             }
+//         })
+//         }
 // }
 
-// var questionTwo = {
-//     question: "Question two",
-//     answerA: "Right A",
-//     answerB: "Wrong B",
-//     answerC: "Wrong C",
-//     answerD: "Wrong D"
+
+// function selectAnswer(){
+
+    // for (const ans of answer){
+    // ans.addEventListener("click", function(){
+    //     if (ans.getAttribute("data-check") === "right"){
+    //         tracker[x].classList.add("right")
+    //         score++
+    //     }
+    //     else if (ans.getAttribute("data-check") === "wrong"){
+    //         tracker[x].classList.add("wrong")
+    //         score --
+    //     }
+
+    //     console.log(score)
+    // })
+    // }
 // }
 
-// var questionThree = {
-//     question: "Question three",
-//     answerA: "Wrong A",
-//     answerB: "Wrong B",
-//     answerC: "Wrong C",
-//     answerD: "Right D"
+// for (var i = 0; i < questions.length; i++){
+//     renderQuestion()
+//     for (const ans of answer){
+//         ans.addEventListener("click", function(){
+//             if (ans.getAttribute("data-check") === "right"){
+//                 tracker[i].classList.add("right")
+//                 score++
+//             }
+//             else if (ans.getAttribute("data-check") === "wrong"){
+//                 tracker[i].classList.add("wrong")
+//                 score --
+//             }
+    
+//             console.log(score)
+//         })
+//         }
 // }
 
-// var questionFour = {
-//     question: "Question four",
-//     answerA: "Wrong A",
-//     answerB: "Right B",
-//     answerC: "Wrong C",
-//     answerD: "Wrong D"
-// }
 
-// var questionFive = {
-//     question: "Question five",
-//     answerA: "Right A",
-//     answerB: "Wrong B",
-//     answerC: "Wrong C",
-//     answerD: "Wrong D"
-// }
+
+
+
+
+
 
 
 
