@@ -5,6 +5,10 @@ body {
     display: none
 }
 
+.modal show{
+    z-index: 1000;
+}
+
 .container-fluid {
     background-color: slategrey;
 }

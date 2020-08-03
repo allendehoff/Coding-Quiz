@@ -11,6 +11,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
+    <div class="modal fade" id="score-modal" tabindex="-1" role="dialog" ] aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Enteryour intitials to add your scored to the leaderboard</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span> 
+                </button> -->
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="form-group">
+                    <label for="name" class="col-form-label">Initials:</label>
+                    <input type="text" class="form-control" id="player-name">
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                <button type="button" class="btn" id="submit-score">Submit</button>
+            </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <header class="header">
             <h1 class="row justify-content-center">
@@ -76,6 +100,13 @@
             <div class="col-1"></div>
         </div>
     </div>
+    <div class="jumbotron hide" id="scoreboard">
+        <h1 class="display-4">High Scores</h1>
+        <div id="leaders">
+        </div>
+        <button id="clear">Clear High Scores</button>
+    </div>
+
 
 
     <!-- Custom JavaScript -->

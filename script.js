@@ -3,8 +3,9 @@ var introEl = document.getElementById("intro")
 var questionEl = document.getElementById("questionBlock")
 var answerTracker = document.getElementById("answer-tracker")
 var timerEl = document.getElementById("timer")
-var secondsLeft = 30
+var secondsLeft = 5
 var score = 0
+
 var question = document.getElementById("question")
 var answerEls = [
     document.getElementById("answer-one"),
@@ -12,11 +13,9 @@ var answerEls = [
     document.getElementById("answer-three"),
     document.getElementById("answer-four")
 ]
+
 var answer = document.getElementsByClassName("answer")
-// var firstAnswer = document.getElementById("answer-one")
-// var secondAnswer = document.getElementById("answer-two")
-// var thirdAnswer = document.getElementById("answer-three")
-// var fourthAnswer = document.getElementById("answer-four")
+
 var tracker = [
     document.getElementById("ans1"),
     document.getElementById("ans2"),
@@ -24,33 +23,6 @@ var tracker = [
     document.getElementById("ans4"),
     document.getElementById("ans5")
 ]
-
-
-startButton.addEventListener("click", function(){
-    timerEl.textContent = "Time Remaining: 30";
-    introEl.classList.add("hide");
-    questionEl.classList.remove("hide");
-    answerTracker.classList.remove("hide");
-    runTimer()
-    renderQuestion(4)
-})
-
-function runTimer() {
-    var timerInterval = setInterval(function() {
-        secondsLeft--;
-        timerEl.textContent = "Time Remaining: " + secondsLeft;
-
-        if(secondsLeft === 0) {
-        clearInterval(timerInterval);
-        endQuiz();
-        }
-        
-    }, 1000);
-}
-
-function endQuiz(){
-    timerEl.classList.add("hide")
-}
 
 var questions = [
     {
@@ -81,6 +53,38 @@ var questions = [
 ]
 
 
+
+
+startButton.addEventListener("click", function(){
+    timerEl.textContent = "Time Remaining: 30";
+    introEl.classList.add("hide");
+    questionEl.classList.remove("hide");
+    answerTracker.classList.remove("hide");
+    runTimer()
+    renderQuestion(4)
+})
+
+function runTimer() {
+    var timerInterval = setInterval(function() {
+        secondsLeft--;
+        timerEl.textContent = "Time Remaining: " + secondsLeft;
+
+        if(secondsLeft === 0) {
+        clearInterval(timerInterval);
+        endQuiz();
+        }
+        
+    }, 1000);
+}
+
+function endQuiz(){
+    timerEl.classList.add("hide")
+    storeScore()
+}
+
+
+
+
 function renderQuestion(x){
     question.textContent = questions[x].question;
     answerEls[0].textContent = questions[x].answers[0];
@@ -106,6 +110,40 @@ function renderQuestion(x){
         }
 }
 
+var highScores = []
+var jumbo = document.getElementById("scoreboard")
+var leaderBoard = document.getElementById("leaders")
+var clearBtn = document.getElementById("clear")
+var modal = document.getElementById("score-modal")
+var playerName = document.getElementById("player-name")
+var submitBtn = document.getElementById("submit-score")
+
+function storeScore(){
+    modal.classList.add("show")
+    submitBtn.addEventListener("click", function(){
+        event.preventDefault()
+        var newBreak = document.creatElement("hr")
+        var newPlayer = jumbo.creatElement("p")
+        newBreak.classList.add("my-4")
+        newPlayer.textContent = playerName.value + score
+        leaderBoard.appendChild(newBreak)
+        leaderBoard.appendChild(newPlayer)
+        toggleScoreboard()
+    })
+}
+
+function toggleScoreboard(){
+    if (jumbo.className === hide){
+        jumbo.classList.remove("hide")
+    }
+    else{
+        jumbo.classList.add("hide")
+    }
+}
+
+clearBtn.addEventListener("click", function(){
+    while(leaders.firstChild) leaders.removeChild(leaders.firstChild)
+})
 
 
 // function selectAnswer(x){
