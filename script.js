@@ -9,22 +9,10 @@ var timerInterval;
 var questionIndex = 0;
 
 var question = document.getElementById("question")
-// var answerEls = [
-//     document.getElementById("answer-one"),
-//     document.getElementById("answer-two"),
-//     document.getElementById("answer-three"),
-//     document.getElementById("answer-four")
-// ]
 
 var answer = document.getElementsByClassName("answer")
 
-var tracker = [
-    document.getElementById("ans1"),
-    document.getElementById("ans2"),
-    document.getElementById("ans3"),
-    document.getElementById("ans4"),
-    document.getElementById("ans5")
-]
+var tracker = document.getElementsByClassName("tracker")
 
 var questions = [
     {
@@ -80,7 +68,7 @@ function runTimer() {
 
 function endQuiz() {
     clearInterval(timerInterval);
-    timerEl.classList.add("hide")
+    timerEl.classList.add("hide");
     storeScore()
 }
 
@@ -91,39 +79,26 @@ function renderQuestion(x) {
         answer[i].textContent = questions[x].answers[i]
         answer[i].addEventListener('click', handleClick)
     }
-    // answerEls[0].textContent = questions[x].answers[0];
-    // // answerEls[0].setAttribute("data-check", questions[x].checks[0]);
-    // answerEls[1].textContent = questions[x].answers[1];
-    // // answerEls[1].setAttribute("data-check", questions[x].checks[1]);
-    // answerEls[2].textContent = questions[x].answers[2];
-    // // answerEls[2].setAttribute("data-check", questions[x].checks[2]);
-    // answerEls[3].textContent = questions[x].answers[3];
-    // // answerEls[3].setAttribute("data-check", questions[x].checks[3]);
 
-    // for (const ans of answer) {
-    //     ans.addEventListener("click", function () {
-    //         if (ans.getAttribute("data-check") === "right") {
-    //             tracker[x].classList.add("right")
-    //             score++
-    //         }
-    //         else if (ans.getAttribute("data-check") === "wrong") {
-    //             tracker[x].classList.add("wrong")
-    //             score--
-    //         }
-    //     })
-    // }
 }
 
 function handleClick() {
     var guessed = questions[questionIndex].answers.indexOf(this.textContent)
     var correct = questions[questionIndex].checks
-    console.log(guessed === correct)
+    if (guessed === correct){
+        tracker[questionIndex].classList.add("right")
+        score ++
+    } else {
+        tracker[questionIndex].classList.add("wrong")
+        score--
+    }
+    console.log(score)
 
 
     questionIndex++;
     if (questionIndex < questions.length) {
         renderQuestion(questionIndex)
-    }
+    } else {endQuiz()}
 }
 
 
@@ -150,7 +125,7 @@ function storeScore() {
 }
 
 function toggleScoreboard() {
-    if (jumbo.className === hide) {
+    if (jumbo.classList.contains("hide")) {
         jumbo.classList.remove("hide")
     }
     else {
@@ -162,6 +137,27 @@ clearBtn.addEventListener("click", function () {
     while (leaders.firstChild) leaders.removeChild(leaders.firstChild)
 })
 
+    // answerEls[0].textContent = questions[x].answers[0];
+    // // answerEls[0].setAttribute("data-check", questions[x].checks[0]);
+    // answerEls[1].textContent = questions[x].answers[1];
+    // // answerEls[1].setAttribute("data-check", questions[x].checks[1]);
+    // answerEls[2].textContent = questions[x].answers[2];
+    // // answerEls[2].setAttribute("data-check", questions[x].checks[2]);
+    // answerEls[3].textContent = questions[x].answers[3];
+    // // answerEls[3].setAttribute("data-check", questions[x].checks[3]);
+
+    // for (const ans of answer) {
+    //     ans.addEventListener("click", function () {
+    //         if (ans.getAttribute("data-check") === "right") {
+    //             tracker[x].classList.add("right")
+    //             score++
+    //         }
+    //         else if (ans.getAttribute("data-check") === "wrong") {
+    //             tracker[x].classList.add("wrong")
+    //             score--
+    //         }
+    //     })
+    // }
 
 // function selectAnswer(x){
 //     for (const ans of answer){
