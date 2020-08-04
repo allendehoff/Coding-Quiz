@@ -5,8 +5,14 @@ body {
     display: none
 }
 
-.modal show{
-    z-index: 1000;
+#jumbotron-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#scoreboard{
+    text-align: center;
 }
 
 .container-fluid {

@@ -3,7 +3,11 @@ var introEl = document.getElementById("intro")
 var questionEl = document.getElementById("questionBlock")
 var answerTracker = document.getElementById("answer-tracker")
 var timerEl = document.getElementById("timer")
-var secondsLeft = 30
+var timerDiv = document.getElementById("timerDiv")
+var jumbotronBtn = document.getElementById("jumbotron-btn")
+var newTryBtn = document.getElementById("try-again")
+
+var secondsLeft
 var score = 0
 var timerInterval;
 var questionIndex = 0;
@@ -55,6 +59,7 @@ startButton.addEventListener("click", function () {
 })
 
 function runTimer() {
+    secondsLeft = 30
     timerInterval = setInterval(function () {
         secondsLeft--;
         timerEl.textContent = "Time Remaining: " + secondsLeft;
@@ -68,7 +73,7 @@ function runTimer() {
 
 function endQuiz() {
     clearInterval(timerInterval);
-    timerEl.classList.add("hide");
+    timerDiv.classList.add("hide");
     storeScore()
 }
 
@@ -91,6 +96,8 @@ function handleClick() {
     } else {
         tracker[questionIndex].classList.add("wrong")
         score--
+        if (secondsLeft >= 5){
+        secondsLeft -= 5} else{ secondsLeft -= secondsLeft}
     }
     console.log(score)
 
@@ -120,20 +127,30 @@ function storeScore() {
         newPlayer.textContent = playerName.value + score
         leaderBoard.appendChild(newBreak)
         leaderBoard.appendChild(newPlayer)
-        toggleScoreboard()
+        showScoreboard()
     })
 }
 
-function toggleScoreboard() {
-    if (jumbo.classList.contains("hide")) {
-        jumbo.classList.remove("hide")
-    }
-    else {
-        jumbo.classList.add("hide")
-    }
+jumbotronBtn.addEventListener("click", showScoreboard)
+
+function showScoreboard() {
+    endQuiz()
+    jumbo.classList.toggle("hide")
+    introEl.classList.add("hide")
+    questionEl.classList.add("hide")
+    answerTracker.classList.add("hide")
+    jumbotronBtn.classList.add("hide")
+    
 }
 
+newTryBtn.addEventListener("click", function(){
+    jumbo.classList.toggle("hide")
+    introEl.classList.remove("hide")
+    jumbotronBtn.classList.remove("hide")
+})
+
 clearBtn.addEventListener("click", function () {
+    event.preventDefault()
     while (leaders.firstChild) leaders.removeChild(leaders.firstChild)
 })
 

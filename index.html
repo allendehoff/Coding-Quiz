@@ -15,7 +15,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Enteryour intitials to add your scored to the leaderboard</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Enter your intitials to add your scored to the leaderboard</h5>
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span> 
                 </button> -->
@@ -37,12 +37,11 @@
     </div>
     <div class="container-fluid">
         <header class="header">
-            <h1 class="row justify-content-center">
-                Coding Quiz
-            </h1>
-            <h3 class="row justify-content-center" id="timer">
-                
-            </h3>
+            <h1 class="row justify-content-center">Coding Quiz</h1>
+            <div id="timerDiv">
+            <h3 class="row justify-content-center" id="timer"></h3>
+            </div>
+            <button id="jumbotron-btn">View High Scores</button>
         </header>
         <div id="intro" class="container">
             <h2 class="row justify-content-center">
@@ -102,9 +101,11 @@
     </div>
     <div class="jumbotron hide" id="scoreboard">
         <h1 class="display-4">High Scores</h1>
+        <hr class="my-4">
         <div id="leaders">
         </div>
         <button id="clear">Clear High Scores</button>
+        <button id="try-again">Try Again</button>
     </div>
 
 
