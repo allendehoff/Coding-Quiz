@@ -165,6 +165,10 @@ function newScore() {
 
 submitBtn.addEventListener("click", function () {
     event.preventDefault()
+    submit()
+})
+
+function submit(){
     if (playerName.value === ""){
         return
     }
@@ -178,12 +182,16 @@ submitBtn.addEventListener("click", function () {
     modal.style.display = "none"
     storeScore()
     showScoreboard()
-})
+}
 
 playerName.addEventListener("keyup", function(event) {
+    event.preventDefault()
+    console.log(event.keyCode)
     if (event.keyCode === 13) {
+        console.log("something else")
         event.preventDefault();
-        submitBtn.click();
+        console.log("another one")
+        submit()
     }
 });
 
