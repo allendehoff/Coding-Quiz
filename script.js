@@ -4,7 +4,10 @@ var questionEl = document.getElementById("questionBlock")
 var answerTracker = document.getElementById("answer-tracker")
 var timerEl = document.getElementById("timer")
 var timerDiv = document.getElementById("timerDiv")
+
+var jumbo = document.getElementById("scoreboard")
 var jumbotronBtn = document.getElementById("jumbotron-btn")
+var clearBtn = document.getElementById("clear")
 var newTryBtn = document.getElementById("try-again")
 
 var secondsLeft
@@ -13,10 +16,12 @@ var timerInterval;
 var questionIndex = 0;
 
 var question = document.getElementById("question")
-
 var answer = document.getElementsByClassName("answer")
-
 var tracker = document.getElementsByClassName("tracker")
+
+var scores = []
+initScores()
+
 
 var questions = [
     {
@@ -46,10 +51,9 @@ var questions = [
     }
 ]
 
-
-
-
 startButton.addEventListener("click", function () {
+    timerEl.classList.remove("hide");
+    timerDiv.classList.remove("hide")
     timerEl.textContent = "Time Remaining: 30";
     introEl.classList.add("hide");
     questionEl.classList.remove("hide");
@@ -74,7 +78,6 @@ function runTimer() {
 function endQuiz() {
     clearInterval(timerInterval);
     timerDiv.classList.add("hide");
-    storeScore()
 }
 
 function renderQuestion(x) {
@@ -105,53 +108,109 @@ function handleClick() {
     questionIndex++;
     if (questionIndex < questions.length) {
         renderQuestion(questionIndex)
-    } else {endQuiz()}
-}
-
-
-var highScores = []
-var jumbo = document.getElementById("scoreboard")
-var leaderBoard = document.getElementById("leaders")
-var clearBtn = document.getElementById("clear")
-var modal = document.getElementById("score-modal")
-var playerName = document.getElementById("player-name")
-var submitBtn = document.getElementById("submit-score")
-
-function storeScore() {
-    modal.classList.add("show")
-    submitBtn.addEventListener("click", function () {
-        event.preventDefault()
-        var newBreak = document.creatElement("hr")
-        var newPlayer = jumbo.creatElement("p")
-        newBreak.classList.add("my-4")
-        newPlayer.textContent = playerName.value + score
-        leaderBoard.appendChild(newBreak)
-        leaderBoard.appendChild(newPlayer)
-        showScoreboard()
-    })
+    } else {
+        endQuiz()
+        newScore()
+    }
 }
 
 jumbotronBtn.addEventListener("click", showScoreboard)
 
 function showScoreboard() {
     endQuiz()
-    jumbo.classList.toggle("hide")
+    jumbo.classList.remove("hide")
     introEl.classList.add("hide")
     questionEl.classList.add("hide")
     answerTracker.classList.add("hide")
     jumbotronBtn.classList.add("hide")
-    
+    renderScores()
 }
 
 newTryBtn.addEventListener("click", function(){
     jumbo.classList.toggle("hide")
     introEl.classList.remove("hide")
     jumbotronBtn.classList.remove("hide")
+    questionIndex = 0
+    score = 0
+    for (var i = 0; i <= answer.length; i++){
+        tracker[i].classList.remove("right")
+        tracker[i].classList.remove("wrong")
+    }
 })
+
+
+var leaderBoard = document.getElementById("leaders")
+
+var modal = document.getElementById("score-modal")
+var playerName = document.getElementById("player-name")
+var submitBtn = document.getElementById("submit-score")
+
+function initScores(){
+    var storedScores = JSON.parse(localStorage.getItem("scorelist"));
+
+    if (storedScores !== null){
+        scores = storedScores
+    }
+}
+
+function storeScore(){
+    localStorage.setItem("scorelist", JSON.stringify(scores));
+}
+
+function newScore() {
+    playerName.value = ""
+    modal.classList.add("show")
+    modal.style.display = "block"
+    }
+
+submitBtn.addEventListener("click", function () {
+    event.preventDefault()
+    if (playerName.value === ""){
+        return
+    }
+    var currentUser = playerName.value.trim();
+
+    var playerEntry = currentUser + ": " + score
+
+    scores.push(playerEntry)
+    playerName.innerHTML = ""
+    modal.classList.remove("show")
+    modal.style.display = "none"
+    storeScore()
+    showScoreboard()
+})
+
+playerName.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        submitBtn.click();
+    }
+});
+
+function renderScores(){
+    leaderBoard.innerHTML = "";
+
+    for (var i = 0; i < scores.length; i++){
+        var player = scores[i]
+
+        var newPlayer = document.createElement("p")
+        newPlayer.textContent = player
+
+        var newBreak = document.createElement("hr")
+        newBreak.classList.add("my-4")
+
+        leaderBoard.appendChild(newPlayer)
+        leaderBoard.appendChild(newBreak)
+    }
+}
+
+
 
 clearBtn.addEventListener("click", function () {
     event.preventDefault()
     while (leaders.firstChild) leaders.removeChild(leaders.firstChild)
+    localStorage.clear()
+    scores = []
 })
 
     // answerEls[0].textContent = questions[x].answers[0];

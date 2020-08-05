@@ -57,3 +57,9 @@ body {
 .wrong{
     background-color: red;
 }
+
+#submit-score{
+    background-color: blue;
+    border-radius: 10%;
+    color: white;
+}
