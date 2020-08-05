@@ -11,14 +11,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
+    <!-- Modal that will pop up at the end of quiz for user to enter their initials to store into scoreboard -->
     <div class="modal fade" id="score-modal" tabindex="-1" role="dialog" ] aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Enter your intitials to add your scored to the leaderboard</h5>
-                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span> 
-                </button> -->
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -27,13 +25,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
                 <button type="button" class="btn" id="submit-score">Submit</button>
             </div>
             </div>
         </div>
     </div>
     <div class="container-fluid">
+        <!-- Header containing title, block where timer will go, and button to view scoreboard -->
         <header class="header">
             <h1 class="row justify-content-center">Coding Quiz</h1>
             <div id="timerDiv">
@@ -41,13 +39,14 @@
             </div>
             <button id="jumbotron-btn">View High Scores</button>
         </header>
+        <!-- Introduction to quiz | will go away once quiz starts -->
         <div id="intro" class="container">
             <h2 class="row justify-content-center">
                 Welcome to the quiz!
             </h2>
             <div class="row justify-content-center">
                 <p class="row justify-content-center text-center">
-                This is a timed quiz. you will have #### seconds to complete the quiz. Every wrong answer will cause the time to decrease by 5 seconds. The quiz will end when all questions have been answered or the time expires. Good luck!
+                This is a timed quiz. you will have 30 seconds to complete the quiz. Every wrong answer will cause the time to decrease by 5 seconds. The quiz will end when all questions have been answered or the time expires. Good luck!
                 </p>
             </div>
             <div class="row justify-content-center">
@@ -56,6 +55,7 @@
                 </button>
             </div>
         </div>
+        <!-- Block that will be populated with question and answers in quiz -->
         <div id="questionBlock" class="hide">
             <div class="row justify-content-center">
             <h2 id= "question">
@@ -76,6 +76,7 @@
             </div>
         </div>
     </div>
+    <!-- Answer tracker | each item will turn green or red based on whether user gets the question correct -->
     <div id="answer-tracker" class="container-fluid hide">
         <div class="row">
             <div class="col-1"></div>
@@ -97,6 +98,7 @@
             <div class="col-1"></div>
         </div>
     </div>
+    <!-- Soreboard Structure -->
     <div class="jumbotron hide" id="scoreboard">
         <h1 class="display-4">High Scores</h1>
         <hr class="my-4">

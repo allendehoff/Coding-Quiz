@@ -19,10 +19,17 @@ var question = document.getElementById("question")
 var answer = document.getElementsByClassName("answer")
 var tracker = document.getElementsByClassName("tracker")
 
+var leaderBoard = document.getElementById("leaders")
+
+var modal = document.getElementById("score-modal")
+var playerName = document.getElementById("player-name")
+var submitBtn = document.getElementById("submit-score")
+
+//creates a blank array and runs a function to fill it with scores stored in local storage if page is refreshed after an attempt has been made
 var scores = []
 initScores()
 
-
+//array holding objects containing question, answers, and index of correct answer
 var questions = [
     {
         question: "What color is the sky?",
@@ -51,17 +58,7 @@ var questions = [
     }
 ]
 
-startButton.addEventListener("click", function () {
-    timerEl.classList.remove("hide");
-    timerDiv.classList.remove("hide")
-    timerEl.textContent = "Time Remaining: 30";
-    introEl.classList.add("hide");
-    questionEl.classList.remove("hide");
-    answerTracker.classList.remove("hide");
-    runTimer()
-    renderQuestion(questionIndex)
-})
-
+//function that will start and increment the timer and run the endQuiz function defined below if time runs out
 function runTimer() {
     secondsLeft = 30
     timerInterval = setInterval(function () {
@@ -75,21 +72,35 @@ function runTimer() {
     }, 1000);
 }
 
+//listener to show and hide elements necessary for the quiz to function, initiate timer function defined above, and render first question
+startButton.addEventListener("click", function () {
+    timerEl.classList.remove("hide");
+    timerDiv.classList.remove("hide")
+    timerEl.textContent = "Time Remaining: 30";
+    introEl.classList.add("hide");
+    questionEl.classList.remove("hide");
+    answerTracker.classList.remove("hide");
+    runTimer()
+    renderQuestion(questionIndex)
+})
+
+
+//function that clears and hides the timer at the end of the quiz (used for time = 0 and after last question)
 function endQuiz() {
     clearInterval(timerInterval);
     timerDiv.classList.add("hide");
 }
 
+//function to load current question and answers and assign the handleClick function to each answer
 function renderQuestion(x) {
     question.textContent = questions[x].question;
-
     for (var i = 0; i < answer.length; i++) {
         answer[i].textContent = questions[x].answers[i]
         answer[i].addEventListener('click', handleClick)
     }
-
 }
 
+//function to compare user selection to correct answer and adjust answer tracker to green if right and red if wrong | increments or decrements score based on correct or incorrect answer
 function handleClick() {
     var guessed = questions[questionIndex].answers.indexOf(this.textContent)
     var correct = questions[questionIndex].checks
@@ -102,9 +113,7 @@ function handleClick() {
         if (secondsLeft >= 5){
         secondsLeft -= 5} else{ secondsLeft -= secondsLeft}
     }
-    console.log(score)
-
-
+    //increases questionIndex by 1 so that next question will load after and answer is selected, unless it is the last question in which case it runs endQuiz defined above and newScore defined below to enter the user's score
     questionIndex++;
     if (questionIndex < questions.length) {
         renderQuestion(questionIndex)
@@ -114,8 +123,7 @@ function handleClick() {
     }
 }
 
-jumbotronBtn.addEventListener("click", showScoreboard)
-
+//functino to display scoreboard and hide everything else and plug in user's initials and score to scoreboard
 function showScoreboard() {
     endQuiz()
     jumbo.classList.remove("hide")
@@ -126,6 +134,10 @@ function showScoreboard() {
     renderScores()
 }
 
+//listener for button in top left of screen so the user can view high scores at any time (ends current try if user in the middle of quiz)
+jumbotronBtn.addEventListener("click", showScoreboard)
+
+//resets everything to initial loading state so that user can try to beat the score they just put on the scoreboard
 newTryBtn.addEventListener("click", function(){
     jumbo.classList.toggle("hide")
     introEl.classList.remove("hide")
@@ -138,13 +150,7 @@ newTryBtn.addEventListener("click", function(){
     }
 })
 
-
-var leaderBoard = document.getElementById("leaders")
-
-var modal = document.getElementById("score-modal")
-var playerName = document.getElementById("player-name")
-var submitBtn = document.getElementById("submit-score")
-
+//loads scores from local storage to preserve them if page is refreshed before user clears the scoreboard
 function initScores(){
     var storedScores = JSON.parse(localStorage.getItem("scorelist"));
 
@@ -153,21 +159,25 @@ function initScores(){
     }
 }
 
+//adds scores to local storage to be retrieved later
 function storeScore(){
     localStorage.setItem("scorelist", JSON.stringify(scores));
 }
 
+//pulls up modal for user to enter their initials to put their score on the scoreboard
 function newScore() {
     playerName.value = ""
     modal.classList.add("show")
     modal.style.display = "block"
     }
 
+//listener for user to use submit button to add their score
 submitBtn.addEventListener("click", function () {
     event.preventDefault()
     submit()
 })
 
+//function that adds user initials and score to scores list, hides modal and shows scoreboard
 function submit(){
     if (playerName.value === ""){
         return
@@ -184,17 +194,16 @@ function submit(){
     showScoreboard()
 }
 
+//listener to make sure enter key works the same as submit button
 playerName.addEventListener("keyup", function(event) {
     event.preventDefault()
-    console.log(event.keyCode)
     if (event.keyCode === 13) {
-        console.log("something else")
         event.preventDefault();
-        console.log("another one")
         submit()
     }
 });
 
+//publishes scores in scoreboard from scores list
 function renderScores(){
     leaderBoard.innerHTML = "";
 
@@ -213,94 +222,10 @@ function renderScores(){
 }
 
 
-
+//listener to make clear button erase all scores from local storage, scores list, and from display
 clearBtn.addEventListener("click", function () {
     event.preventDefault()
     while (leaders.firstChild) leaders.removeChild(leaders.firstChild)
     localStorage.clear()
     scores = []
 })
-
-    // answerEls[0].textContent = questions[x].answers[0];
-    // // answerEls[0].setAttribute("data-check", questions[x].checks[0]);
-    // answerEls[1].textContent = questions[x].answers[1];
-    // // answerEls[1].setAttribute("data-check", questions[x].checks[1]);
-    // answerEls[2].textContent = questions[x].answers[2];
-    // // answerEls[2].setAttribute("data-check", questions[x].checks[2]);
-    // answerEls[3].textContent = questions[x].answers[3];
-    // // answerEls[3].setAttribute("data-check", questions[x].checks[3]);
-
-    // for (const ans of answer) {
-    //     ans.addEventListener("click", function () {
-    //         if (ans.getAttribute("data-check") === "right") {
-    //             tracker[x].classList.add("right")
-    //             score++
-    //         }
-    //         else if (ans.getAttribute("data-check") === "wrong") {
-    //             tracker[x].classList.add("wrong")
-    //             score--
-    //         }
-    //     })
-    // }
-
-// function selectAnswer(x){
-//     for (const ans of answer){
-//         ans.addEventListener("click", function(){
-//             if (ans.getAttribute("data-check") === "right"){
-//                 tracker[x].classList.add("right")
-//                 score++
-//             }
-//             else if (ans.getAttribute("data-check") === "wrong"){
-//                 tracker[x].classList.add("wrong")
-//                 score --
-//             }
-//         })
-//         }
-// }
-
-
-// function selectAnswer(){
-
-    // for (const ans of answer){
-    // ans.addEventListener("click", function(){
-    //     if (ans.getAttribute("data-check") === "right"){
-    //         tracker[x].classList.add("right")
-    //         score++
-    //     }
-    //     else if (ans.getAttribute("data-check") === "wrong"){
-    //         tracker[x].classList.add("wrong")
-    //         score --
-    //     }
-
-    //     console.log(score)
-    // })
-    // }
-// }
-
-// for (var i = 0; i < questions.length; i++){
-//     renderQuestion()
-//     for (const ans of answer){
-//         ans.addEventListener("click", function(){
-//             if (ans.getAttribute("data-check") === "right"){
-//                 tracker[i].classList.add("right")
-//                 score++
-//             }
-//             else if (ans.getAttribute("data-check") === "wrong"){
-//                 tracker[i].classList.add("wrong")
-//                 score --
-//             }
-
-//             console.log(score)
-//         })
-//         }
-// }
-
-
-
-
-
-
-
-
-
-
